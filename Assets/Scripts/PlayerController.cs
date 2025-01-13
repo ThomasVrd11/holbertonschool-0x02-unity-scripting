@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
 private Rigidbody rb;
 private int score = 0;
 [SerializeField] private int health = 5;
-
     void Start()
     {
         // Get the Rigidbody component
@@ -55,5 +54,7 @@ private int score = 0;
         {
             Debug.Log("You win!");
         }
+
+
     }
 }
