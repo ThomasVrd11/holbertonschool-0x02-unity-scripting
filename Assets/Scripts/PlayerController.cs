@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 [SerializeField] private float speed = 5f;
 private Rigidbody rb;
 private int score = 0;
+[SerializeField] private int health = 5;
 
     void Start()
     {
@@ -32,6 +33,13 @@ private int score = 0;
             score++;
             Debug.Log("Score: " + score + "\nCollided with: " + other.name);
             Destroy(other.gameObject);
+        }
+
+        if (other.gameObject.CompareTag("Trap"))
+        {
+            health--;
+            Debug.Log("Health: " + health + "\nCollided with: " + other.name);
+            other.gameObject.SetActive(false);
         }
     }
 }
