@@ -3,7 +3,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 [SerializeField] private float speed = 5f;
-private Rigidbody rb; 
+private Rigidbody rb;
+private int score = 0;
 
     void Start()
     {
@@ -13,13 +14,24 @@ private Rigidbody rb;
 
     void FixedUpdate()
     {
+        // Get the input from the player
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
-        
-        // Create a Vector3 variable to store the movement
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-        // Apply the movement to the Rigidbody
-        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+        // Create a new Vector3 to store the movement
+        Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical);
+
+        // Add a force to the Rigidbody
+        rb.AddForce(movement * speed);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Pickup"))
+        {
+            score++;
+            Debug.Log("Score: " + score + "\nCollided with: " + other.name);
+            Destroy(other.gameObject);
+        }
     }
 }
