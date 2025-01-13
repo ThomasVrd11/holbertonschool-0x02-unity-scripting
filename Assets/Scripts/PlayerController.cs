@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,6 +14,14 @@ private int score = 0;
         rb = GetComponent<Rigidbody>();
     }
 
+    void Update()
+    {
+        if (health == 0)
+        {
+            Debug.Log("Game Over!");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
     void FixedUpdate()
     {
         // Get the input from the player
@@ -40,6 +49,11 @@ private int score = 0;
             health--;
             Debug.Log("Health: " + health + "\nCollided with: " + other.name);
             other.gameObject.SetActive(false);
+        }
+
+        if (other.gameObject.CompareTag("Goal"))
+        {
+            Debug.Log("You win!");
         }
     }
 }
